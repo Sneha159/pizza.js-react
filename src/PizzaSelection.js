@@ -6,14 +6,24 @@ export default class PizzaSelection extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = Object.assign(
-            {},
-            backend,
-            {
-                selectedIngredients: [],
-                selectedPizza: backend.pizzas[0]
-            }
-        );
+        this.state = {
+            selectedIngredients: [],
+            selectedPizza: backend.pizzas[0],
+            pizzas: [],
+            ingredients: []
+        };
+    }
+
+    componentWillMount() {
+        fetch('http://localhost:3001/pizzas')
+            .then(response => response.json())
+            .then(pizzas => this.setState({pizzas}))
+            .catch(err => console.error(err));
+
+        fetch('http://localhost:3001/ingredients')
+            .then(response => response.json())
+            .then(ingredients => this.setState({ingredients}))
+            .catch(err => console.error(err));
     }
 
     updateIngredients(checked, ingredient) {
@@ -33,7 +43,7 @@ export default class PizzaSelection extends React.Component {
         return this.state.selectedPizza.price + ingredientsPrice;
     }
 
-    getSelectedPizzaClassName(pizza) {
+    getSelectedPizzaClassName(pizza) {
         return this.state.selectedPizza && this.state.selectedPizza.name === pizza.name && 'pizza-tile--selected';
     }
 
@@ -63,12 +73,7 @@ export default class PizzaSelection extends React.Component {
                 <div id="pizzaIngredients">
                     {this.state.ingredients.map(ingredient => (
                         <label key={ingredient.name} className="pizza-ingredients__item">
-                            <input
-                              onChange={
-                                event => this.updateIngredients(event.target.checked, ingredient)
-                              }
-                              value={ingredient.name}
-                              type="checkbox"
+                            <input onChange={event => this.updateIngredients(event.target.checked, ingredient)} value={ingredient.name} type="checkbox"
                             />
                             {` ${ingredient.name} - ${ingredient.price}`}
                         </label>
