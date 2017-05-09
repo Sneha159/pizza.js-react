@@ -63,8 +63,14 @@ export default class PizzaSelection extends React.Component {
                 <div id="pizzaIngredients">
                     {this.state.ingredients.map(ingredient => (
                         <label key={ingredient.name} className="pizza-ingredients__item">
-                            <input onChange={event => this.updateIngredients(event.target.checked, ingredient)} value={ingredient.name} type="checkbox" />
-                            {ingredient.name}
+                            <input
+                              onChange={
+                                event => this.updateIngredients(event.target.checked, ingredient)
+                              }
+                              value={ingredient.name}
+                              type="checkbox"
+                            />
+                            {` ${ingredient.name} - ${ingredient.price}`}
                         </label>
                     ))}
                 </div>
