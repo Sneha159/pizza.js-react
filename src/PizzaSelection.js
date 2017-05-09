@@ -1,5 +1,4 @@
 import React from 'react';
-import backend from './backend.json';
 
 export default class PizzaSelection extends React.Component {
 
@@ -8,7 +7,6 @@ export default class PizzaSelection extends React.Component {
 
         this.state = {
             selectedIngredients: [],
-            selectedPizza: backend.pizzas[0],
             pizzas: [],
             ingredients: []
         };
@@ -17,7 +15,10 @@ export default class PizzaSelection extends React.Component {
     componentWillMount() {
         fetch('http://localhost:3001/pizzas')
             .then(response => response.json())
-            .then(pizzas => this.setState({pizzas}))
+            .then(pizzas => this.setState({
+                pizzas,
+                selectedPizza: pizzas[0]
+            }))
             .catch(err => console.error(err));
 
         fetch('http://localhost:3001/ingredients')
