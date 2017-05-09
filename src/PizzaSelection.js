@@ -1,60 +1,73 @@
 import React from 'react';
+import backend from './backend.json';
 
-export default () => (
-    <div id="pizzaSelection">
-        <div className="pizza-tiles">
-            <div className="pizza-tile">
-                <div className="pizza-tile__avatar">
-                    M
+export default class PizzaSelection extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = Object.assign(
+            {},
+            backend,
+            {
+                selectedIngredients: [],
+                selectedPizza: backend.pizzas[0]
+            }
+        );
+    }
+
+    updateIngredients(checked, ingredient) {
+        const updateState = {};
+
+        if (checked) {
+            updateState.selectedIngredients = this.state.selectedIngredients.concat(ingredient);
+        } else {
+            updateState.selectedIngredients = this.state.selectedIngredients.filter(currentIngredient => currentIngredient !== ingredient);
+        }
+
+        this.setState(updateState);
+    }
+
+    getTotalPrice() {
+        const ingredientsPrice = this.state.selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
+        return this.state.selectedPizza.price + ingredientsPrice;
+    }
+
+    render() {
+        return (
+            <div id="pizzaSelection">
+                <div className="pizza-tiles">
+                    {this.state.pizzas.map(pizza => (
+                        <div
+                            key={pizza.name}
+                            className="pizza-tile"
+                            onClick={() => this.setState({selectedPizza: pizza})}
+                        >
+                            <div className="pizza-tile__avatar">
+                                {pizza.name.split(' ').map(name => name[0]).join('')}
+                            </div>
+                            <div className="pizza-tile__content">
+                                <h3 className="pizza-tile__title">{pizza.name}</h3>
+                                <p className="pizza-tile__description">
+                                    {pizza.ingredients.join(', ')}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                <div className="pizza-tile__content">
-                    <h3 className="pizza-tile__title">Margherita</h3>
-                    <p className="pizza-tile__description">
-                        Tomate, Mozzarella, Oregano
-                    </p>
+                <hr className="pizza-selection-divider"/>
+                <div id="pizzaIngredients">
+                    {this.state.ingredients.map(ingredient => (
+                        <label key={ingredient.name} className="pizza-ingredients__item">
+                            <input onChange={event => this.updateIngredients(event.target.checked, ingredient)} value={ingredient.name} type="checkbox" />
+                            {ingredient.name}
+                        </label>
+                    ))}
                 </div>
+                <hr className="pizza-selection-divider"/>
+                {this.state.selectedPizza && this.getTotalPrice()}
+                <button className="order-button">Add to Shopping Cart</button>
             </div>
-            <div className="pizza-tile">
-                <div className="pizza-tile__avatar">
-                    P&F
-                </div>
-                <div className="pizza-tile__content">
-                    <h3 className="pizza-tile__title">Prosciutto et Funghi</h3>
-                    <p className="pizza-tile__description">
-                        Tomate, Mozzarella, Oregano, Schinken, Pilze und noch mehr Pilze
-                    </p>
-                </div>
-            </div>
-            <div className="pizza-tile">
-                <div className="pizza-tile__avatar">
-                    M
-                </div>
-                <div className="pizza-tile__content">
-                    <h3 className="pizza-tile__title">Margherita</h3>
-                    <p className="pizza-tile__description">
-                        Tomate, Mozzarella, Oregano
-                    </p>
-                </div>
-            </div>
-        </div>
-        <hr className="pizza-selection-divider"/>
-        <div id="pizzaIngredients">
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Salami</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Schinken</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Artischocken</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Ananas</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Kapern</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Sardellen</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Büffelmozzarella</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Cherry-Tomaten</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Gruyère</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Rucola</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Speck</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Oliven</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Trüffel</label>
-            <label className="pizza-ingredients__item"><input type="checkbox" /> Scharf</label>
-        </div>
-        <hr className="pizza-selection-divider"/>
-        <button className="order-button">Add to Shopping Cart</button>
-    </div>
-);
+        );
+    }
+}
