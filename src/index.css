@@ -85,6 +85,22 @@ ul {
   background-size: contain;
 }
 
+#pizzaIngredients {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 15px 0;
+}
+
+.pizza-ingredients__item {
+  padding: 15px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 #pizzaPreview {
   flex: none;
   width: 33%;
@@ -97,41 +113,6 @@ ul {
 
 .pizza-preview-toggler {
   display: none;
-}
-
-@media (max-width: 640px) {
-  #pizzaPreview {
-    position: fixed;
-    top: 0;
-    right: -90%;
-    bottom: 0;
-    width: 90%;
-    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  #pizzaPreview.pizza-preview--open {
-    right: 0%;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-  }
-
-  .pizza-preview-toggler {
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: -20px;
-    width: 20px;
-    border: none;
-    background-color: #34495e;
-    color: #ecf0f1;
-    height: 50px;
-    padding: 0;
-    border-radius: 5px 0 0 5px;
-  }
-
-  .pizza-preview-toggler:focus, .pizza-preview-toggler:active {
-    outline: none;
-  }
 }
 
 .pizza-preview-scroll {
@@ -193,3 +174,57 @@ ul {
   display: flex;
   justify-content: space-between;
 }
+
+@media (max-width: 640px) {
+  #pizzaIngredients {
+    width: initial;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .pizza-ingredients__item {
+    flex: 0 0 50%;
+  }
+
+  #pizzaPreview {
+    position: fixed;
+    top: 0;
+    right: -90%;
+    bottom: 0;
+    width: 90%;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #pizzaPreview.pizza-preview--open {
+    right: 0%;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  }
+
+  .pizza-preview--open .pizza-preview-toggler__icon {
+    transform: rotate(180deg);
+  }
+
+  .pizza-preview-toggler {
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -20px;
+    width: 20px;
+    border: none;
+    background-color: #34495e;
+    color: #ecf0f1;
+    height: 50px;
+    padding: 0;
+    border-radius: 5px 0 0 5px;
+  }
+
+  .pizza-preview-toggler__icon {
+    transition: transform .25s ease
+  }
+
+  .pizza-preview-toggler:focus, .pizza-preview-toggler:active {
+    outline: none;
+  }
+}
+

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './App.css';
 import PizzaSelection from './PizzaSelection';
 import PizzaPreview from './PizzaPreview';
 

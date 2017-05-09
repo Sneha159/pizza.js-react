@@ -38,9 +38,22 @@ export default () => (
             </div>
         </div>
         <hr className="pizza-selection-divider"/>
-        <p>
-            checkboxes
-        </p>
+        <div id="pizzaIngredients">
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Salami</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Schinken</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Artischocken</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Ananas</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Kapern</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Sardellen</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Büffelmozzarella</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Cherry-Tomaten</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Gruyère</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Rucola</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Speck</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Oliven</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Trüffel</label>
+            <label className="pizza-ingredients__item"><input type="checkbox" /> Scharf</label>
+        </div>
         <hr className="pizza-selection-divider"/>
         <button className="order-button">Add to Shopping Cart</button>
     </div>
