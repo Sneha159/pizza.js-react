@@ -33,6 +33,10 @@ export default class PizzaSelection extends React.Component {
         return this.state.selectedPizza.price + ingredientsPrice;
     }
 
+    getSelectedPizzaClassName(pizza) {
+        return this.state.selectedPizza && this.state.selectedPizza.name === pizza.name && 'pizza-tile--selected';
+    }
+
     render() {
         return (
             <div id="pizzaSelection">
@@ -40,7 +44,7 @@ export default class PizzaSelection extends React.Component {
                     {this.state.pizzas.map(pizza => (
                         <div
                             key={pizza.name}
-                            className="pizza-tile"
+                            className={`pizza-tile ${this.getSelectedPizzaClassName(pizza)}`}
                             onClick={() => this.setState({selectedPizza: pizza})}
                         >
                             <div className="pizza-tile__avatar">
