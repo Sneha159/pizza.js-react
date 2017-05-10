@@ -4,10 +4,24 @@ import PizzaPreview from './PizzaPreview';
 
 class App extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    selectPizza(pizza) {
+        this.setState({
+            selectedPizza: pizza
+        })
+    }
+
     render() {
         return (
             <main>
-                <PizzaSelection />
+                <PizzaSelection
+                    selectedPizza={this.state.selectedPizza}
+                    onSelectPizza={(pizza) => this.selectPizza(pizza)}
+                />
                 <PizzaPreview />
             </main>
         );

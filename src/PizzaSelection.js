@@ -17,10 +17,12 @@ export default class PizzaSelection extends React.Component {
     componentWillMount() {
         fetch('http://localhost:3001/pizzas')
             .then(response => response.json())
-            .then(pizzas => this.setState({
-                pizzas,
-                selectedPizza: pizzas[0]
-            }))
+            .then(pizzas => {
+                this.setState({
+                    pizzas
+                });
+                this.props.onSelectPizza(pizzas[0]);
+            })
             .catch(err => console.error(err));
 
         fetch('http://localhost:3001/ingredients')
@@ -43,24 +45,24 @@ export default class PizzaSelection extends React.Component {
 
     getTotalPrice() {
         const ingredientsPrice = this.state.selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
-        return this.state.selectedPizza.price + ingredientsPrice;
+        return this.props.selectedPizza.price + ingredientsPrice;
     }
 
     render() {
         return (
             <div id="pizzaSelection">
                 <PizzaList
-                  pizzas={this.state.pizzas}
-                  selectedPizza={this.state.selectedPizza}
-                  onSelected={(pizza) => this.setState({ selectedPizza: pizza })}
+                    pizzas={this.state.pizzas}
+                    selectedPizza={this.props.selectedPizza}
+                    onSelected={(pizza) => this.props.onSelectPizza(pizza)}
                 />
                 <hr className="pizza-selection-divider"/>
                 <IngredientsSelection
-                  ingredients={this.state.ingredients}
-                  onChanged={(checked, ingredient) => this.updateIngredients(checked, ingredient)}
+                    ingredients={this.state.ingredients}
+                    onChanged={(checked, ingredient) => this.updateIngredients(checked, ingredient)}
                 />
                 <hr className="pizza-selection-divider"/>
-                {this.state.selectedPizza && this.getTotalPrice()}
+                {this.props.selectedPizza && this.getTotalPrice()}
                 <button className="order-button">Add to Shopping Cart</button>
             </div>
         );
