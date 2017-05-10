@@ -1,11 +1,11 @@
 import React from 'react';
 
-export default (props) => (
+export default ({ ingredients, onChanged }) => (
   <div id="pizzaIngredients">
-    {props.ingredients.map(ingredient => (
+    {ingredients.map(ingredient => (
       <label key={ingredient.name} className="pizza-ingredients__item">
         <input
-          onChange={event => props.onChanged(event.target.checked, ingredient)}
+          onChange={event => onChanged(event.target.checked, ingredient)}
           value={ingredient.name}
           type="checkbox"
         />

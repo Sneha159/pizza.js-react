@@ -8,13 +8,13 @@ function getSelectedPizzaClassName(selectedPizza, currentPizza) {
   return '';
 }
 
-export default (props) => (
+export default ({ pizzas, selectedPizza, onSelected }) => (
   <div className="pizza-tiles">
-    {props.pizzas.map(pizza => (
+    {pizzas.map(pizza => (
       <div
         key={pizza.name}
-        className={`pizza-tile ${getSelectedPizzaClassName(props.selectedPizza, pizza)}`}
-        onClick={() => props.onSelected(pizza)}
+        className={`pizza-tile ${getSelectedPizzaClassName(selectedPizza, pizza)}`}
+        onClick={() => onSelected(pizza)}
       >
         <div className="pizza-tile__avatar">
           {pizza.name.split(' ').map(name => name[0]).join('')}
