@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PizzaList from './PizzaList';
 import IngredientsSelection from './IngredientsSelection';
-import {IngredientPropType, PizzaPropType} from "./propTypes";
+import {IngredientPropType, PizzaPropType} from "../propTypes";
 
 class PizzaSelection extends React.Component {
 

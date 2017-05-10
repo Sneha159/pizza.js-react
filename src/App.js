@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import PizzaSelection from './PizzaSelection';
-import PizzaPreview from './PizzaPreview';
+import PizzaSelection from './pizza-selection/PizzaSelection';
+import PizzaPreview from './pizza-preview/PizzaPreview';
 
 class App extends Component {
 
