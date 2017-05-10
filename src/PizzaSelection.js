@@ -32,19 +32,19 @@ export default class PizzaSelection extends React.Component {
     }
 
     updateIngredients(checked, ingredient) {
-        const updateState = {};
+        let ingredients = this.props.selectedIngredients;
 
         if (checked) {
-            updateState.selectedIngredients = this.state.selectedIngredients.concat(ingredient);
+            ingredients = ingredients.concat(ingredient);
         } else {
-            updateState.selectedIngredients = this.state.selectedIngredients.filter(currentIngredient => currentIngredient !== ingredient);
+            ingredients = ingredients.filter(currentIngredient => currentIngredient !== ingredient);
         }
 
-        this.setState(updateState);
+        this.props.onChangeIngredients(ingredients);
     }
 
     getTotalPrice() {
-        const ingredientsPrice = this.state.selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
+        const ingredientsPrice = this.props.selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
         return this.props.selectedPizza.price + ingredientsPrice;
     }
 

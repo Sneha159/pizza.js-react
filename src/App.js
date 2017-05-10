@@ -6,13 +6,9 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
-    }
-
-    selectPizza(pizza) {
-        this.setState({
-            selectedPizza: pizza
-        })
+        this.state = {
+            selectedIngredients: []
+        };
     }
 
     render() {
@@ -20,9 +16,14 @@ class App extends Component {
             <main>
                 <PizzaSelection
                     selectedPizza={this.state.selectedPizza}
-                    onSelectPizza={(pizza) => this.selectPizza(pizza)}
+                    selectedIngredients={this.state.selectedIngredients}
+                    onSelectPizza={(selectedPizza) => this.setState({ selectedPizza })}
+                    onChangeIngredients={(selectedIngredients) => this.setState({ selectedIngredients })}
                 />
-                <PizzaPreview />
+                <PizzaPreview
+                    selectedPizza={this.state.selectedPizza}
+                    selectedIngredients={this.state.selectedIngredients}
+                />
             </main>
         );
     }
