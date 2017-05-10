@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PizzaList from './PizzaList';
 import IngredientsSelection from './IngredientsSelection';
+import {IngredientPropType, PizzaPropType} from "./propTypes";
 
 class PizzaSelection extends React.Component {
 
@@ -71,17 +72,8 @@ class PizzaSelection extends React.Component {
 }
 
 PizzaSelection.propTypes = {
-    selectedPizza: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
-    }),
-    selectedIngredients: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            price: PropTypes.number.isRequired
-        })
-    ),
+    selectedPizza: PizzaPropType,
+    selectedIngredients: PropTypes.arrayOf(IngredientPropType),
     onSelectPizza: PropTypes.func.isRequired,
     onChangeIngredients: PropTypes.func.isRequired,
 };
