@@ -1,5 +1,6 @@
 import React from 'react';
 import PizzaList from './PizzaList';
+import IngredientsSelection from './IngredientsSelection';
 
 export default class PizzaSelection extends React.Component {
 
@@ -48,17 +49,16 @@ export default class PizzaSelection extends React.Component {
     render() {
         return (
             <div id="pizzaSelection">
-                <PizzaList pizzas={this.state.pizzas} selectedPizza={this.state.selectedPizza} onSelected={(pizza) => this.setState({ selectedPizza: pizza })}/>
+                <PizzaList
+                  pizzas={this.state.pizzas}
+                  selectedPizza={this.state.selectedPizza}
+                  onSelected={(pizza) => this.setState({ selectedPizza: pizza })}
+                />
                 <hr className="pizza-selection-divider"/>
-                <div id="pizzaIngredients">
-                    {this.state.ingredients.map(ingredient => (
-                        <label key={ingredient.name} className="pizza-ingredients__item">
-                            <input onChange={event => this.updateIngredients(event.target.checked, ingredient)} value={ingredient.name} type="checkbox"
-                            />
-                            {` ${ingredient.name} - ${ingredient.price}`}
-                        </label>
-                    ))}
-                </div>
+                <IngredientsSelection
+                  ingredients={this.state.ingredients}
+                  onChanged={(checked, ingredient) => this.updateIngredients(checked, ingredient)}
+                />
                 <hr className="pizza-selection-divider"/>
                 {this.state.selectedPizza && this.getTotalPrice()}
                 <button className="order-button">Add to Shopping Cart</button>
