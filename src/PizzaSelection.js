@@ -1,4 +1,5 @@
 import React from 'react';
+import PizzaList from './PizzaList';
 
 export default class PizzaSelection extends React.Component {
 
@@ -44,32 +45,10 @@ export default class PizzaSelection extends React.Component {
         return this.state.selectedPizza.price + ingredientsPrice;
     }
 
-    getSelectedPizzaClassName(pizza) {
-        return this.state.selectedPizza && this.state.selectedPizza.name === pizza.name && 'pizza-tile--selected';
-    }
-
     render() {
         return (
             <div id="pizzaSelection">
-                <div className="pizza-tiles">
-                    {this.state.pizzas.map(pizza => (
-                        <div
-                            key={pizza.name}
-                            className={`pizza-tile ${this.getSelectedPizzaClassName(pizza)}`}
-                            onClick={() => this.setState({selectedPizza: pizza})}
-                        >
-                            <div className="pizza-tile__avatar">
-                                {pizza.name.split(' ').map(name => name[0]).join('')}
-                            </div>
-                            <div className="pizza-tile__content">
-                                <h3 className="pizza-tile__title">{pizza.name}</h3>
-                                <p className="pizza-tile__description">
-                                    {pizza.ingredients.join(', ')}
-                                </p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                <PizzaList pizzas={this.state.pizzas} selectedPizza={this.state.selectedPizza} onSelected={(pizza) => this.setState({ selectedPizza: pizza })}/>
                 <hr className="pizza-selection-divider"/>
                 <div id="pizzaIngredients">
                     {this.state.ingredients.map(ingredient => (
