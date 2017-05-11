@@ -20,16 +20,14 @@ class PizzaSelection extends React.Component {
         fetch('http://localhost:3001/pizzas')
             .then(response => response.json())
             .then(pizzas => {
-                this.setState({
-                    pizzas
-                });
+                this.setState({ pizzas });
                 this.props.onSelectPizza(pizzas[0]);
             })
             .catch(err => console.error(err));
 
         fetch('http://localhost:3001/ingredients')
             .then(response => response.json())
-            .then(ingredients => this.setState({ingredients}))
+            .then(ingredients => this.setState({ ingredients }))
             .catch(err => console.error(err));
     }
 
@@ -73,7 +71,7 @@ class PizzaSelection extends React.Component {
 
 PizzaSelection.propTypes = {
     selectedPizza: PizzaPropType,
-    selectedIngredients: PropTypes.arrayOf(IngredientPropType),
+    selectedIngredients: PropTypes.arrayOf(IngredientPropType).isRequired,
     onSelectPizza: PropTypes.func.isRequired,
     onChangeIngredients: PropTypes.func.isRequired,
 };
