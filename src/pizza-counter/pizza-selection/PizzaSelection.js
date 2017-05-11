@@ -4,31 +4,20 @@ import PizzaList from './PizzaList';
 import IngredientsSelection from './IngredientsSelection';
 import {IngredientPropType, PizzaPropType} from "../../propTypes";
 import formatPrice from './priceFormatter';
+import { connect } from 'react-redux';
+import { pizzasLoaded, selectPizza, ingredientsLoaded, changeIngredients} from "../../actions";
 
 class PizzaSelection extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            selectedIngredients: [],
-            pizzas: [],
-            ingredients: []
-        };
-    }
 
     componentWillMount() {
         fetch('http://localhost:3001/pizzas')
             .then(response => response.json())
-            .then(pizzas => {
-                this.setState({ pizzas });
-                this.props.onSelectPizza(pizzas[0]);
-            })
+            .then(this.props.onPizzasLoaded)
             .catch(err => console.error(err));
 
         fetch('http://localhost:3001/ingredients')
             .then(response => response.json())
-            .then(ingredients => this.setState({ ingredients }))
+            .then(this.props.onIngredientsLoaded)
             .catch(err => console.error(err));
     }
 
@@ -53,13 +42,13 @@ class PizzaSelection extends React.Component {
         return (
             <div id="pizzaSelection">
                 <PizzaList
-                    pizzas={this.state.pizzas}
+                    pizzas={this.props.pizzas}
                     selectedPizza={this.props.selectedPizza}
                     onSelected={(pizza) => this.props.onSelectPizza(pizza)}
                 />
                 <hr className="pizza-selection-divider"/>
                 <IngredientsSelection
-                    ingredients={this.state.ingredients}
+                    ingredients={this.props.ingredients}
                     onChanged={(checked, ingredient) => this.updateIngredients(checked, ingredient)}
                 />
                 <hr className="pizza-selection-divider"/>
@@ -77,4 +66,25 @@ PizzaSelection.propTypes = {
     onChangeIngredients: PropTypes.func.isRequired,
 };
 
-export default PizzaSelection;
+export default connect(
+    (state) => ({
+        pizzas: state.pizzas,
+        ingredients: state.ingredients,
+        selectedPizza: state.selectedPizza,
+        selectedIngredients: state.selectedIngredients
+    }),
+    (dispatch) => ({
+        onPizzasLoaded(pizzas) {
+            dispatch(pizzasLoaded(pizzas))
+        },
+        onIngredientsLoaded(ingredients) {
+            dispatch(ingredientsLoaded(ingredients))
+        },
+        onSelectPizza(pizza) {
+            dispatch(selectPizza(pizza))
+        },
+        onChangeIngredients(ingredients) {
+            dispatch(changeIngredients(ingredients))
+        }
+    })
+)(PizzaSelection);

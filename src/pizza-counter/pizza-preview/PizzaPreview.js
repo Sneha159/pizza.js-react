@@ -1,7 +1,8 @@
 import React from 'react';
 import ShoppingCart from './ShoppingCart';
+import { connect } from 'react-redux';
 
-export default class PizzaPreview extends React.Component {
+class PizzaPreview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -34,3 +35,10 @@ export default class PizzaPreview extends React.Component {
         );
     }
 }
+
+export default connect(
+    (state) => ({
+        selectedPizza: state.selectedPizza,
+        selectedIngredients: state.selectedIngredients,
+    })
+)(PizzaPreview);
