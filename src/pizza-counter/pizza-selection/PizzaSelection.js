@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import PizzaList from './PizzaList';
 import IngredientsSelection from './IngredientsSelection';
 import {IngredientPropType, PizzaPropType} from "../../propTypes";
+import formatPrice from './priceFormatter';
 
 class PizzaSelection extends React.Component {
 
@@ -62,7 +63,7 @@ class PizzaSelection extends React.Component {
                     onChanged={(checked, ingredient) => this.updateIngredients(checked, ingredient)}
                 />
                 <hr className="pizza-selection-divider"/>
-                {this.props.selectedPizza && this.getTotalPrice()}
+                {this.props.selectedPizza && formatPrice(this.getTotalPrice())}
                 <button className="link-button">Add to Shopping Cart</button>
             </div>
         );

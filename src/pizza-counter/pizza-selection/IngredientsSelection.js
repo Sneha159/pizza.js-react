@@ -1,4 +1,5 @@
 import React from 'react';
+import formatPrice from './priceFormatter';
 
 export default ({ ingredients, onChanged }) => (
   <div id="pizzaIngredients">
@@ -9,7 +10,7 @@ export default ({ ingredients, onChanged }) => (
           value={ingredient.name}
           type="checkbox"
         />
-        {` ${ingredient.name} - ${ingredient.price}`}
+        {` ${ingredient.name} - ${formatPrice(ingredient.price)}`}
       </label>
     ))}
   </div>
