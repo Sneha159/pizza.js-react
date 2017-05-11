@@ -9,6 +9,7 @@
   "devDependencies": {
     "enzyme": "2.8.2",
     "prop-types": "15.5.9",
+    "react-router-dom": "4.1.1",
     "react-scripts": "0.9.5",
     "react-test-renderer": "15.5.4"
   },

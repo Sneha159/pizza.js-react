@@ -63,7 +63,7 @@ class PizzaSelection extends React.Component {
                 />
                 <hr className="pizza-selection-divider"/>
                 {this.props.selectedPizza && this.getTotalPrice()}
-                <button className="order-button">Add to Shopping Cart</button>
+                <button className="link-button">Add to Shopping Cart</button>
             </div>
         );
     }

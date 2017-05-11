@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 export default () => (
     <div id="shoppingCart">
         <ul className="shopping-cart-list">
@@ -53,7 +53,7 @@ export default () => (
             </li>
         </ul>
         <div className="shopping-cart-order">
-            <button className="order-button">Order</button>
+            <Link className="link-button" to="/checkout">Order</Link>
         </div>
     </div>
 );

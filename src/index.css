@@ -156,7 +156,7 @@ ul {
   text-align: right;
 }
 
-button {
+button, .link-button {
   color: #ecf0f1;
   background-color: #1abc9c;
   border: none;
@@ -166,7 +166,9 @@ button {
   padding: 10px 15px;
 }
 
-.order-button {
+.link-button {
+  display: inline-block;
+  text-decoration: none;
   margin: 15px;
 }
 
