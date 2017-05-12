@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import formatPrice from '../priceFormatter';
+import formatPrice from './pizza-counter/priceFormatter';
 
 const ShoppingCart = ({ shoppingCart }) => (
     <div id="shoppingCart">

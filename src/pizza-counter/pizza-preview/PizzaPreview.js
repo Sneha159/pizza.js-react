@@ -1,5 +1,5 @@
 import React from 'react';
-import ShoppingCart from './ShoppingCart';
+import ShoppingCart from '../../ShoppingCart';
 import { connect } from 'react-redux';
 
 class PizzaPreview extends React.Component {
