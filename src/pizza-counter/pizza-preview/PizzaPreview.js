@@ -38,7 +38,7 @@ class PizzaPreview extends React.Component {
 
 export default connect(
     (state) => ({
-        selectedPizza: state.selectedPizza,
-        selectedIngredients: state.selectedIngredients,
+        selectedPizza: state.pizzaApp.selectedPizza,
+        selectedIngredients: state.pizzaApp.selectedIngredients,
     })
 )(PizzaPreview);

@@ -68,10 +68,10 @@ PizzaSelection.propTypes = {
 
 export default connect(
     (state) => ({
-        pizzas: state.pizzas,
-        ingredients: state.ingredients,
-        selectedPizza: state.selectedPizza,
-        selectedIngredients: state.selectedIngredients
+        pizzas: state.pizzaApp.pizzas,
+        ingredients: state.pizzaApp.ingredients,
+        selectedPizza: state.pizzaApp.selectedPizza,
+        selectedIngredients: state.pizzaApp.selectedIngredients
     }),
     (dispatch) => ({
         onPizzasLoaded(pizzas) {
