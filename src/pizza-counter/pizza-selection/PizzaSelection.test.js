@@ -1,4 +1,4 @@
-import PizzaSelection from './PizzaSelection';
+import { PizzaSelection } from './PizzaSelection';
 
 it('should calculate the sum of the prices of the pizza and all selected ingredients', () => {
     const expectedSum = 13;

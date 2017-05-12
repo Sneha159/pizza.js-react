@@ -7,7 +7,7 @@ import formatPrice from './priceFormatter';
 import { connect } from 'react-redux';
 import { pizzasLoaded, selectPizza, ingredientsLoaded, changeIngredients} from "../../actions";
 
-class PizzaSelection extends React.Component {
+export class PizzaSelection extends React.Component {
 
     componentWillMount() {
         fetch('http://localhost:3001/pizzas')
