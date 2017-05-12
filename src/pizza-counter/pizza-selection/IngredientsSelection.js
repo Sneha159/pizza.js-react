@@ -1,5 +1,5 @@
 import React from 'react';
-import formatPrice from './priceFormatter';
+import formatPrice from '../priceFormatter';
 
 export default ({ ingredients, onChanged }) => (
   <div id="pizzaIngredients">

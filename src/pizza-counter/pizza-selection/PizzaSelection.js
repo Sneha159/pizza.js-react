@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import PizzaList from './PizzaList';
 import IngredientsSelection from './IngredientsSelection';
 import {IngredientPropType, PizzaPropType} from "../../propTypes";
-import formatPrice from './priceFormatter';
+import formatPrice from '../priceFormatter';
 import { connect } from 'react-redux';
-import { pizzasLoaded, selectPizza, ingredientsLoaded, changeIngredients} from "../../actions";
+import { pizzasLoaded, selectPizza, ingredientsLoaded, changeIngredients, addPizzaToShoppingCart } from "../../actions";
 
 export class PizzaSelection extends React.Component {
 
@@ -53,7 +53,16 @@ export class PizzaSelection extends React.Component {
                 />
                 <hr className="pizza-selection-divider"/>
                 {this.props.selectedPizza && formatPrice(this.getTotalPrice())}
-                <button className="link-button">Add to Shopping Cart</button>
+                <button
+                    className="link-button"
+                    onClick={() => this.props.onAddPizzaToShoppingCart(
+                        this.props.selectedPizza,
+                        this.props.selectedIngredients,
+                        this.getTotalPrice()
+                    )}
+                >
+                    Add to Shopping Cart
+                </button>
             </div>
         );
     }
@@ -75,16 +84,23 @@ export default connect(
     }),
     (dispatch) => ({
         onPizzasLoaded(pizzas) {
-            dispatch(pizzasLoaded(pizzas))
+            dispatch(pizzasLoaded(pizzas));
         },
         onIngredientsLoaded(ingredients) {
-            dispatch(ingredientsLoaded(ingredients))
+            dispatch(ingredientsLoaded(ingredients));
         },
         onSelectPizza(pizza) {
-            dispatch(selectPizza(pizza))
+            dispatch(selectPizza(pizza));
         },
         onChangeIngredients(ingredients) {
-            dispatch(changeIngredients(ingredients))
+            dispatch(changeIngredients(ingredients));
+        },
+        onAddPizzaToShoppingCart(pizza, ingredients, price) {
+            dispatch(addPizzaToShoppingCart({
+                pizza,
+                ingredients,
+                price
+            }));
         }
     })
 )(PizzaSelection);

@@ -3,7 +3,8 @@ import * as Actions from './actions';
 const initialState = {
     pizzas: [],
     ingredients: [],
-    selectedIngredients: []
+    selectedIngredients: [],
+    shoppingCart: []
 };
 
 export default function pizzaApp(state = initialState, action) {
@@ -24,6 +25,10 @@ export default function pizzaApp(state = initialState, action) {
         case Actions.CHANGE_INGREDIENTS:
             return Object.assign({}, state, {
                 selectedIngredients: action.ingredients
+            });
+        case Actions.ADD_PIZZA_TO_SHOPPING_CART:
+            return Object.assign({}, state, {
+                shoppingCart: state.shoppingCart.concat(action.configuredPizza)
             });
         default:
             return state;
