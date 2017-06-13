@@ -1,8 +1,9 @@
 import React from 'react';
-import backend from './backend.json';
+import PropTypes from 'prop-types';
 import formatPrice from './priceFormatter';
+import { PizzaPropType } from './propTypes';
 
-export default class PizzaSelection extends React.Component {
+class PizzaSelection extends React.Component {
 
   constructor(props) {
     super(props);
@@ -17,20 +18,22 @@ export default class PizzaSelection extends React.Component {
   componentWillMount() {
     fetch('http://localhost:3001/pizzas')
       .then(response => response.json())
-      .then(pizzas => this.setState({
-        pizzas,
-        selectedPizza: pizzas[0]
-      }))
+      .then(pizzas => {
+        this.setState({
+          pizzas,
+        });
+        this.props.onSelectPizza(pizzas[0]);
+      })
       .catch(err => console.error(err));
 
     fetch('http://localhost:3001/ingredients')
       .then(response => response.json())
-      .then(ingredients => this.setState({ingredients}))
+      .then(ingredients => this.setState({ ingredients }))
       .catch(err => console.error(err));
   }
 
   getSelectedPizzaClassName(pizza) {
-    if (this.state.selectedPizza === pizza) {
+    if (this.props.selectedPizza === pizza) {
       return 'pizza-tile--selected';
     }
 
@@ -50,8 +53,8 @@ export default class PizzaSelection extends React.Component {
   }
 
   getTotalPrice() {
-    if (this.state.selectedPizza) {
-      return this.state.selectedPizza.price + this.state.selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
+    if (this.props.selectedPizza) {
+      return this.props.selectedPizza.price + this.state.selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
     }
 
     return 0;
@@ -65,7 +68,7 @@ export default class PizzaSelection extends React.Component {
             <div
               className={`pizza-tile ${this.getSelectedPizzaClassName(pizza)}`}
               key={pizza.name}
-              onClick={() => this.setState({ selectedPizza: pizza })}
+              onClick={() => this.props.onSelectPizza(pizza)}
             >
               <div className="pizza-tile__avatar">
                 {pizza.name.split(' ').map(name => name[0]).join('')}
@@ -99,3 +102,10 @@ export default class PizzaSelection extends React.Component {
     );
   }
 }
+
+PizzaSelection.propTypes = {
+  selectedPizza: PizzaPropType,
+  onSelectPizza: PropTypes.func.isRequired,
+};
+
+export default PizzaSelection;
