@@ -1,5 +1,6 @@
 import React from 'react';
 import backend from './backend.json';
+import formatPrice from './priceFormatter';
 
 export default class PizzaSelection extends React.Component {
 
@@ -69,12 +70,12 @@ export default class PizzaSelection extends React.Component {
                 type="checkbox"
                 onChange={event => this.updateIngredients(event.target.checked, ingredient)}
               />
-              {` ${ingredient.name} - ${ingredient.price}`}
+              {` ${ingredient.name} - ${formatPrice(ingredient.price)}`}
             </label>
           ))}
         </div>
         <hr className="pizza-selection-divider" />
-        {this.getTotalPrice()}
+        {formatPrice(this.getTotalPrice())}
         <button className="order-button">Add to Shopping Cart</button>
       </div>
     );
