@@ -8,6 +8,7 @@ export default class PizzaSelection extends React.Component {
 
     this.state = {
       pizzas: backend.pizzas,
+      ingredients: backend.ingredients,
     };
   }
 
@@ -34,34 +35,12 @@ export default class PizzaSelection extends React.Component {
         </div>
         <hr className="pizza-selection-divider" />
         <div id="pizzaIngredients">
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Salami</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Schinken</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Artischocken</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Ananas</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Kapern</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Sardellen</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Büffelmozzarella</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Cherry-Tomaten</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Gruyère</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Rucola</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Speck</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Oliven</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Trüffel</label>
-          <label className="pizza-ingredients__item"><input type="checkbox" />
-            Scharf</label>
+          {this.state.ingredients.map(ingredient => (
+            <label key={ingredient.name} className="pizza-ingredients__item">
+              <input value={ingredient.name} type="checkbox" />
+              {ingredient.name}
+            </label>
+          ))}
         </div>
         <hr className="pizza-selection-divider" />
         <button className="order-button">Add to Shopping Cart</button>
