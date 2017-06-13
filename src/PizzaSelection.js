@@ -8,11 +8,20 @@ export default class PizzaSelection extends React.Component {
     super(props);
 
     this.state = {
-      pizzas: backend.pizzas,
+      pizzas: [],
       ingredients: backend.ingredients,
-      selectedPizza: backend.pizzas[0],
       selectedIngredients: [],
     };
+  }
+
+  componentWillMount() {
+    fetch('http://localhost:3001/pizzas')
+      .then(response => response.json())
+      .then(pizzas => this.setState({
+        pizzas,
+        selectedPizza: pizzas[0]
+      }))
+      .catch(err => console.error(err));
   }
 
   getSelectedPizzaClassName(pizza) {
@@ -36,7 +45,11 @@ export default class PizzaSelection extends React.Component {
   }
 
   getTotalPrice() {
-    return this.state.selectedPizza.price + this.state.selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
+    if (this.state.selectedPizza) {
+      return this.state.selectedPizza.price + this.state.selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
+    }
+
+    return 0;
   }
 
   render() {
@@ -47,7 +60,7 @@ export default class PizzaSelection extends React.Component {
             <div
               className={`pizza-tile ${this.getSelectedPizzaClassName(pizza)}`}
               key={pizza.name}
-              onClick={() => this.setState({selectedPizza: pizza})}
+              onClick={() => this.setState({ selectedPizza: pizza })}
             >
               <div className="pizza-tile__avatar">
                 {pizza.name.split(' ').map(name => name[0]).join('')}
