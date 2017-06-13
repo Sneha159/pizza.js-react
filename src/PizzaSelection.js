@@ -10,6 +10,7 @@ export default class PizzaSelection extends React.Component {
       pizzas: backend.pizzas,
       ingredients: backend.ingredients,
       selectedPizza: backend.pizzas[0],
+      selectedIngredients: [],
     };
   }
 
@@ -19,6 +20,18 @@ export default class PizzaSelection extends React.Component {
     }
 
     return '';
+  }
+
+  updateIngredients(isChecked, ingredient) {
+    const updateState = {};
+
+    if (isChecked) {
+      updateState.selectedIngredients = this.state.selectedIngredients.concat(ingredient);
+    } else {
+      updateState.selectedIngredients = this.state.selectedIngredients.filter(currentIngredient => currentIngredient !== ingredient);
+    }
+
+    this.setState(updateState);
   }
 
   render() {
@@ -47,7 +60,11 @@ export default class PizzaSelection extends React.Component {
         <div id="pizzaIngredients">
           {this.state.ingredients.map(ingredient => (
             <label key={ingredient.name} className="pizza-ingredients__item">
-              <input value={ingredient.name} type="checkbox" />
+              <input
+                value={ingredient.name}
+                type="checkbox"
+                onChange={event => this.updateIngredients(event.target.checked, ingredient)}
+              />
               {ingredient.name}
             </label>
           ))}
