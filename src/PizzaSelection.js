@@ -9,7 +9,7 @@ export default class PizzaSelection extends React.Component {
 
     this.state = {
       pizzas: [],
-      ingredients: backend.ingredients,
+      ingredients: [],
       selectedIngredients: [],
     };
   }
@@ -21,6 +21,11 @@ export default class PizzaSelection extends React.Component {
         pizzas,
         selectedPizza: pizzas[0]
       }))
+      .catch(err => console.error(err));
+
+    fetch('http://localhost:3001/ingredients')
+      .then(response => response.json())
+      .then(ingredients => this.setState({ingredients}))
       .catch(err => console.error(err));
   }
 
