@@ -34,6 +34,10 @@ export default class PizzaSelection extends React.Component {
     this.setState(updateState);
   }
 
+  getTotalPrice() {
+    return this.state.selectedPizza.price + this.state.selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
+  }
+
   render() {
     return (
       <div id="pizzaSelection">
@@ -65,11 +69,12 @@ export default class PizzaSelection extends React.Component {
                 type="checkbox"
                 onChange={event => this.updateIngredients(event.target.checked, ingredient)}
               />
-              {ingredient.name}
+              {` ${ingredient.name} - ${ingredient.price}`}
             </label>
           ))}
         </div>
         <hr className="pizza-selection-divider" />
+        {this.getTotalPrice()}
         <button className="order-button">Add to Shopping Cart</button>
       </div>
     );
