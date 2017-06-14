@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import formatPrice from './priceFormatter';
-import { PizzaPropType } from './propTypes';
+import { IngredientPropType, PizzaPropType } from './propTypes';
 
 class PizzaSelection extends React.Component {
 
@@ -11,7 +11,6 @@ class PizzaSelection extends React.Component {
     this.state = {
       pizzas: [],
       ingredients: [],
-      selectedIngredients: [],
     };
   }
 
@@ -41,20 +40,16 @@ class PizzaSelection extends React.Component {
   }
 
   updateIngredients(isChecked, ingredient) {
-    const updateState = {};
-
     if (isChecked) {
-      updateState.selectedIngredients = this.state.selectedIngredients.concat(ingredient);
+      this.props.onChangeIngredients(this.props.selectedIngredients.concat(ingredient));
     } else {
-      updateState.selectedIngredients = this.state.selectedIngredients.filter(currentIngredient => currentIngredient !== ingredient);
+      this.props.onChangeIngredients(this.props.selectedIngredients.filter(currentIngredient => currentIngredient !== ingredient));
     }
-
-    this.setState(updateState);
   }
 
   getTotalPrice() {
     if (this.props.selectedPizza) {
-      return this.props.selectedPizza.price + this.state.selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
+      return this.props.selectedPizza.price + this.props.selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
     }
 
     return 0;
@@ -105,7 +100,9 @@ class PizzaSelection extends React.Component {
 
 PizzaSelection.propTypes = {
   selectedPizza: PizzaPropType,
+  selectedIngredients: PropTypes.arrayOf(IngredientPropType),
   onSelectPizza: PropTypes.func.isRequired,
+  onChangeIngredients: PropTypes.func.isRequired,
 };
 
 export default PizzaSelection;

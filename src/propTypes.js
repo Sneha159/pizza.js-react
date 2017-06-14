@@ -5,3 +5,8 @@ export const PizzaPropType = PropTypes.shape({
   price: PropTypes.number.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
 });
+
+export const IngredientPropType = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+});
