@@ -9,18 +9,12 @@ class App extends Component {
     this.state = {};
   }
 
-  selectPizza(selectedPizza) {
-    this.setState({
-      selectedPizza,
-    });
-  }
-
   render() {
     return (
       <main>
         <PizzaSelection
           selectedPizza={this.state.selectedPizza}
-          onSelectPizza={pizza => this.selectPizza(pizza)}
+          onSelectPizza={selectedPizza => this.setState({ selectedPizza })}
         />
         <PizzaPreview
           selectedPizza={this.state.selectedPizza}
