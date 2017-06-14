@@ -128,12 +128,14 @@ ul {
 
 #pizzaAnimation {
   flex-grow: 1;
+  text-align: center;
+  padding: 25px;
 }
 
 .pizza-picture {
   margin: 0 auto;
   display: block;
-  width: 70%;
+  width: 90%;
 }
 
 #shoppingCart {
